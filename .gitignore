@@ -62,4 +62,4 @@ crashlytics-build.properties
 .DS_Store
 
 # Ignore TMP as it gets imported automatically
-[Aa]ssets/TextMesh Pro
+[Aa]ssets/TextMesh Pro*
