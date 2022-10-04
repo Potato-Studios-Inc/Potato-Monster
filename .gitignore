@@ -63,3 +63,6 @@ crashlytics-build.properties
 
 # Ignore TMP as it gets imported automatically
 [Aa]ssets/TextMesh Pro*
+
+# Jetbrains
+.idea
