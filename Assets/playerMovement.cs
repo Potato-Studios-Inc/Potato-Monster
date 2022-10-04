@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
-    private float walkSpeed;
+    private float walkSpeed = 6f;
     private float moveInput;
     private Rigidbody2D rb;
     public float jumpValue = 0.0f;
@@ -44,8 +44,6 @@ public class playerMovement : MonoBehaviour
             rb.velocity = new Vector2(tempx, tempy);
         }
         
-        
-        //Flip();
     }
 
     /*
@@ -54,23 +52,5 @@ public class playerMovement : MonoBehaviour
         rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
     }
     */
-
-    /*
-    private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }
     
-
-    private void Flip()
-    {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
-    }
-    */
 }
