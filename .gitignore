@@ -61,5 +61,8 @@ crashlytics-build.properties
 # Mac OS
 .DS_Store
 
-#Jetbrains
-/.idea
+# Ignore TMP as it gets imported automatically
+[Aa]ssets/TextMesh Pro*
+
+# Jetbrains
+.idea
