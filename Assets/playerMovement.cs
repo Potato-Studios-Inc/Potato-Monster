@@ -9,7 +9,8 @@ public class playerMovement : MonoBehaviour
     private float moveInput;
     private Rigidbody2D rb;
     public float jumpValue = 0.0f;
-    
+
+    public PhysicsMaterial2D bounceMat, normalMat;
     public LayerMask groundMask;
     
     public bool canJump = true;
@@ -26,31 +27,33 @@ public class playerMovement : MonoBehaviour
     {
         moveInput = Input.GetAxisRaw("Horizontal");
 
+        rb.sharedMaterial = jumpValue > 0 ? bounceMat : normalMat;
+        
         if (jumpValue == 0.0f && isGrounded)
         {
             rb.velocity = new Vector2(moveInput * walkSpeed, rb.velocity.y);
         }
-        
+
         isGrounded = Physics2D.OverlapBox(
             new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), 
-            new Vector2(0.9f, 0.4f), 0f, groundMask);
+            new Vector2(0.9f, 0.0f), 0f, groundMask);
 
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
         }
-        
+
         if (Input.GetKey("space") && isGrounded && canJump)
         {
-            jumpValue += 0.05f;
+            jumpValue += 0.02f;
         }
         
-        if (jumpValue >= 20f && isGrounded)
+        if (jumpValue >= 15f && isGrounded)
         {
             float tempx = moveInput * walkSpeed;
             float tempy = jumpValue;
             rb.velocity = new Vector2(tempx, tempy);
-            Invoke("ResetJump", 0.2f);
+            Invoke("ResetJump", 0.1f);
         }
 
         if (Input.GetKeyUp("space"))
@@ -67,6 +70,6 @@ public class playerMovement : MonoBehaviour
     void ResetJump()
     {
         canJump = false;
-        jumpValue = 0;
+        jumpValue = 0.0f;
     }
 }

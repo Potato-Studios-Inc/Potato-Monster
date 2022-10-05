@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 458632821}
   - component: {fileID: 458632820}
   - component: {fileID: 458632822}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 584615059}
   - component: {fileID: 584615058}
   - component: {fileID: 584615060}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 847852212}
   - component: {fileID: 847852211}
   - component: {fileID: 847852213}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 1325975261}
   - component: {fileID: 1325975260}
   - component: {fileID: 1325975259}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -649,7 +649,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448473729
 GameObject:
@@ -745,12 +745,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1529968486
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -817,7 +817,7 @@ Transform:
   m_Children:
   - {fileID: 1448473730}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1529968488
 MonoBehaviour:
@@ -866,9 +866,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpValue: 0
+  bounceMat: {fileID: 0}
+  normalMat: {fileID: 0}
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8
   canJump: 1
   isGrounded: 0
 --- !u!1 &1839738036
@@ -966,7 +968,7 @@ GameObject:
   - component: {fileID: 1972540865}
   - component: {fileID: 1972540864}
   - component: {fileID: 1972540866}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1079,7 @@ GameObject:
   - component: {fileID: 2047377357}
   - component: {fileID: 2047377356}
   - component: {fileID: 2047377358}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ground (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
