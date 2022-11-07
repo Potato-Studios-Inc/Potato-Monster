@@ -47,7 +47,7 @@ public class playerMovement : MonoBehaviour
             OnStartAimingToJump();
         }
 
-        if (Input.GetKey("space") && isGrounded && canJump)
+        if (Input.GetKey("space") && isGrounded && canJump && _isAimingToJump)
         {
             OnAimingToJump();
         }
