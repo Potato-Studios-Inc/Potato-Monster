@@ -44,41 +44,42 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
-            rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            _isAimingToJump = true;
+            OnStartAimingToJump();
         }
 
         if (Input.GetKey("space") && isGrounded && canJump)
         {
-            jumpValue += 0.02f;
-        }
-        
-        if (jumpValue >= 15f && isGrounded)
-        {
-            float tempx = inputX * walkSpeed;
-            float tempy = jumpValue;
-            rb.velocity = new Vector2(tempx, tempy);
-            Invoke("ResetJump", 0.1f);
-            _isAimingToJump = false;
+            OnAimingToJump();
         }
 
-        if (Input.GetKeyUp("space"))
+        if (jumpValue >= 15f || Input.GetKeyUp("space"))
         {
-            if (isGrounded)
-            {
-                rb.velocity = new Vector2(inputX * walkSpeed, jumpValue);
-                jumpValue = 0.0f;
-            }
-            canJump = true;
-            _isAimingToJump = false;
+            OnJump();
         }
         _animator.SetBool(IsAimingToJump, _isAimingToJump);
         _animator.SetBool(IsWalking,inputX != 0);
     }
 
-    void ResetJump()
+    private void OnStartAimingToJump()
     {
-        canJump = false;
-        jumpValue = 0.0f;
+        rb.velocity = new Vector2(0.0f, rb.velocity.y);
+        _isAimingToJump = true;
+    }
+
+    private void OnAimingToJump()
+    {
+        jumpValue += 0.02f;
+    }
+
+    private void OnJump()
+    {
+        if (isGrounded)
+        {
+            var inputX = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(inputX * walkSpeed, jumpValue);
+            jumpValue = 0.0f;
+            _isAimingToJump = false;
+            canJump = true;
+        }
     }
 }
