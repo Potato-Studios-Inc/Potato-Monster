@@ -26,7 +26,8 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-
+        
+        
         rb.sharedMaterial = jumpValue > 0 ? bounceMat : normalMat;
         
         if (jumpValue == 0.0f && isGrounded)
