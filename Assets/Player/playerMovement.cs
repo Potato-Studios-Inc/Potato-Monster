@@ -79,7 +79,16 @@ public class playerMovement : MonoBehaviour
 
     private void OnAimingToJump()
     {
-        jumpValue += 10.0f * Time.deltaTime;
+        //if quick press space, jumpValue will be 0.5f and if hold space it will increase
+        if (jumpValue == 0.0f)
+        {
+            jumpValue = 3.75f;
+        }
+        else
+        {
+            jumpValue += 8.0f * Time.deltaTime;
+        }
+        
     }
 
     private void OnJump()
