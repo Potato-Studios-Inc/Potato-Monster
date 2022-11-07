@@ -19,10 +19,10 @@ public class playerMovement : MonoBehaviour
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
     
-    bool IsGrounded() {
+    private bool IsGrounded() {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
-        const float distance = 1.0f;
+        const float distance = 0.5f;
     
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundMask);
         return hit.collider != null;
@@ -32,7 +32,6 @@ public class playerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -41,9 +40,9 @@ public class playerMovement : MonoBehaviour
         var inputX = Input.GetAxisRaw("Horizontal");
 
         isGrounded = IsGrounded();
-        
+
         rb.sharedMaterial = !isGrounded ? bounceMat : normalMat;
-        
+
         if (jumpValue == 0.0f && isGrounded)
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
