@@ -74,7 +74,7 @@ public class playerMovement : MonoBehaviour
 
     private void OnAimingToJump()
     {
-        jumpValue += 0.02f;
+        jumpValue += 10.0f * Time.deltaTime;
     }
 
     private void OnJump()
