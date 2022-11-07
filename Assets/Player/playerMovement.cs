@@ -18,17 +18,29 @@ public class playerMovement : MonoBehaviour
     private bool _isAimingToJump = false;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
+    
+    bool IsGrounded() {
+        Vector2 position = transform.position;
+        Vector2 direction = Vector2.down;
+        const float distance = 1.0f;
+    
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundMask);
+        return hit.collider != null;
+    }
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         var inputX = Input.GetAxisRaw("Horizontal");
+
+        isGrounded = IsGrounded();
         
         rb.sharedMaterial = !isGrounded ? bounceMat : normalMat;
         
@@ -36,11 +48,7 @@ public class playerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
         }
-        
-        isGrounded = Physics2D.OverlapBox(
-            new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), 
-            new Vector2(0.9f, 0.0f), 0f, groundMask);
-        
+
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
             OnStartAimingToJump();
