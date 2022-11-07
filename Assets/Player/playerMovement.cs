@@ -18,6 +18,7 @@ public class playerMovement : MonoBehaviour
     private bool _isAimingToJump = false;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
+    public Camera[] cameras;
     
     private bool IsGrounded() {
         Vector2 position = transform.position;
@@ -37,6 +38,8 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateActiveCamera();
+        
         var inputX = Input.GetAxisRaw("Horizontal");
 
         isGrounded = IsGrounded();
@@ -86,6 +89,23 @@ public class playerMovement : MonoBehaviour
             jumpValue = 0.0f;
             _isAimingToJump = false;
             canJump = true;
+        }
+    }
+
+    private void UpdateActiveCamera()
+    {
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            // Check if player is in camera view
+            var playerPos = rb.position;
+            var cameraPos = cameras[i].transform.position;
+            var cameraSize = cameras[i].orthographicSize;
+            var cameraWidth = cameraSize * cameras[i].aspect;
+            var cameraHeight = cameraSize;
+            var cameraMin = new Vector2(cameraPos.x - cameraWidth, cameraPos.y - cameraHeight);
+            var cameraMax = new Vector2(cameraPos.x + cameraWidth, cameraPos.y + cameraHeight);
+            var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y && playerPos.y < cameraMax.y;                            
+            cameras[i].gameObject.SetActive(inCamera);
         }
     }
 }
