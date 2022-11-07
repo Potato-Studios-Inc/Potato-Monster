@@ -43,8 +43,17 @@ public class playerMovement : MonoBehaviour
         var inputX = Input.GetAxisRaw("Horizontal");
 
         isGrounded = IsGrounded();
-
-        rb.sharedMaterial = !isGrounded ? bounceMat : normalMat;
+        
+        //Make player bounce when hitting wall but can't bounce when hitting the ground
+        if (inputX != 0 && !isGrounded)
+        {
+            rb.sharedMaterial = bounceMat;
+        }
+        else
+        {
+            rb.sharedMaterial = normalMat;
+        }
+       
 
         if (jumpValue == 0.0f && isGrounded)
         {
