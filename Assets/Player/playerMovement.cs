@@ -11,14 +11,13 @@ public class playerMovement : MonoBehaviour
 
     public PhysicsMaterial2D bounceMat, normalMat;
     public LayerMask groundMask;
-    
+
     public bool canJump = true;
     public bool isGrounded;
     private Animator _animator;
     private bool _isAimingToJump = false;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
-
 
     private void Start()
     {
@@ -30,18 +29,18 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         var inputX = Input.GetAxisRaw("Horizontal");
-
-        rb.sharedMaterial = jumpValue > 0 ? bounceMat : normalMat;
+        
+        rb.sharedMaterial = !isGrounded ? bounceMat : normalMat;
         
         if (jumpValue == 0.0f && isGrounded)
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
         }
-
+        
         isGrounded = Physics2D.OverlapBox(
             new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.5f), 
             new Vector2(0.9f, 0.0f), 0f, groundMask);
-
+        
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
             OnStartAimingToJump();
