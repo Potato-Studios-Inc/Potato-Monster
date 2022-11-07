@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
-    private float walkSpeed = 2.0f;
+    private float walkSpeed = 3.0f;
     private Rigidbody2D rb;
     public float jumpValue = 0.0f;
 
@@ -52,7 +52,7 @@ public class playerMovement : MonoBehaviour
             OnAimingToJump();
         }
 
-        if (jumpValue >= 15f || Input.GetKeyUp("space"))
+        if (jumpValue >= 10f || Input.GetKeyUp("space"))
         {
             OnJump();
         }
