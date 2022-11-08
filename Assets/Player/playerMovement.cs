@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
-    private float walkSpeed = 3.0f;
+    private float walkSpeed = 2.3f;
     private Rigidbody2D rb;
     public float jumpValue = 0.0f;
 
@@ -19,15 +19,6 @@ public class playerMovement : MonoBehaviour
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
     public Camera[] cameras;
-    
-    private bool IsGrounded() {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        const float distance = 0.5f;
-    
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundMask);
-        return hit.collider != null;
-    }
 
     private void Start()
     {
@@ -42,7 +33,8 @@ public class playerMovement : MonoBehaviour
         
         var inputX = Input.GetAxisRaw("Horizontal");
 
-        isGrounded = IsGrounded();
+        //Check if player is grounded with raycast 
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundMask);
         
         //Make player bounce when hitting wall but can't bounce when hitting the ground
         if (inputX != 0 && !isGrounded)
@@ -53,13 +45,14 @@ public class playerMovement : MonoBehaviour
         {
             rb.sharedMaterial = normalMat;
         }
-       
 
+        //Player can walk only if jumpValue is 0 and isGrounded
         if (jumpValue == 0.0f && isGrounded)
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
         }
-
+        
+        
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
             OnStartAimingToJump();
@@ -86,7 +79,16 @@ public class playerMovement : MonoBehaviour
 
     private void OnAimingToJump()
     {
-        jumpValue += 10.0f * Time.deltaTime;
+        //if quick press space, jumpValue will be 0.5f and if hold space it will increase
+        if (jumpValue == 0.0f)
+        {
+            jumpValue = 3.75f;
+        }
+        else
+        {
+            jumpValue += 8.0f * Time.deltaTime;
+        }
+        
     }
 
     private void OnJump()
