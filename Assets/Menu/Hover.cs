@@ -48,6 +48,8 @@ public class Hover : MonoBehaviour
                 moveTimer = 0;
             }
         }
+
+
         indicator.localPosition = charBtn[indicatorPos].localPosition;
     }
 }
