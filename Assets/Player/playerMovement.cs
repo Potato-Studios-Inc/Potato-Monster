@@ -45,13 +45,25 @@ public class playerMovement : MonoBehaviour
         {
             rb.sharedMaterial = normalMat;
         }
+        
+        //When player jumps, player cant control arrow keys
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            _isAimingToJump = true;
+            _animator.SetBool(IsAimingToJump, true);
+        }
+        else if (Input.GetKeyUp(KeyCode.Space) && isGrounded)
+        {
+            _isAimingToJump = false;
+            _animator.SetBool(IsAimingToJump, false);
+            rb.velocity = new Vector2(rb.velocity.x, jumpValue);
+        }
 
         //Player can walk only if jumpValue is 0 and isGrounded
         if (jumpValue == 0.0f && isGrounded)
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
         }
-        
         
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
@@ -88,7 +100,6 @@ public class playerMovement : MonoBehaviour
         {
             jumpValue += 8.0f * Time.deltaTime;
         }
-        
     }
 
     private void OnJump()
