@@ -66,3 +66,6 @@ crashlytics-build.properties
 
 # Jetbrains
 .idea
+
+# Crash mem dump
+*.blob
