@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
-    private float walkSpeed = 2.3f;
+    private float walkSpeed = 1.3f;
     private Rigidbody2D rb;
     public float jumpValue = 0.0f;
 
@@ -75,7 +75,7 @@ public class playerMovement : MonoBehaviour
             OnAimingToJump();
         }
 
-        if (jumpValue >= 10f || Input.GetKeyUp("space"))
+        if (jumpValue >= 6f || Input.GetKeyUp("space"))
         {
             OnJump();
         }
@@ -94,11 +94,11 @@ public class playerMovement : MonoBehaviour
         //if quick press space, jumpValue will be 0.5f and if hold space it will increase
         if (jumpValue == 0.0f)
         {
-            jumpValue = 3.75f;
+            jumpValue = 2.5f;
         }
         else
         {
-            jumpValue += 8.0f * Time.deltaTime;
+            jumpValue += 4.0f * Time.deltaTime;
         }
     }
 
