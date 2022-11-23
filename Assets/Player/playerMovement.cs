@@ -18,12 +18,14 @@ public class playerMovement : MonoBehaviour
     private bool _isAimingToJump = false;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
-    public Camera[] cameras;
+    public GameObject camerasParent;
+    private Camera[] _cameras;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _cameras = camerasParent.GetComponentsInChildren<Camera>();
     }
 
     // Update is called once per frame
@@ -116,18 +118,18 @@ public class playerMovement : MonoBehaviour
 
     private void UpdateActiveCamera()
     {
-        for (int i = 0; i < cameras.Length; i++)
+        for (int i = 0; i < _cameras.Length; i++)
         {
             // Check if player is in camera view
             var playerPos = rb.position;
-            var cameraPos = cameras[i].transform.position;
-            var cameraSize = cameras[i].orthographicSize;
-            var cameraWidth = cameraSize * cameras[i].aspect;
+            var cameraPos = _cameras[i].transform.position;
+            var cameraSize = _cameras[i].orthographicSize;
+            var cameraWidth = cameraSize * _cameras[i].aspect;
             var cameraHeight = cameraSize;
             var cameraMin = new Vector2(cameraPos.x - cameraWidth, cameraPos.y - cameraHeight);
             var cameraMax = new Vector2(cameraPos.x + cameraWidth, cameraPos.y + cameraHeight);
             var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y && playerPos.y < cameraMax.y;                            
-            cameras[i].gameObject.SetActive(inCamera);
+            _cameras[i].gameObject.SetActive(inCamera);
         }
     }
 }
