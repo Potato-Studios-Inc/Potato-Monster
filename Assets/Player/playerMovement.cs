@@ -50,7 +50,7 @@ public class playerMovement : MonoBehaviour
         var inputX = Input.GetAxisRaw("Horizontal");
 
         //Check if player is grounded with raycast 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundMask);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
 
         //Make player bounce when hitting wall but can't bounce when hitting the ground
         if (inputX != 0 && !isGrounded)
@@ -91,7 +91,7 @@ public class playerMovement : MonoBehaviour
             OnAimingToJump();
         }
 
-        if (jumpValue >= 6f || Input.GetKeyUp("space"))
+        if (jumpValue >= 6f || Input.GetKeyUp("space") && isGrounded)
         {
             OnJump();
         }
