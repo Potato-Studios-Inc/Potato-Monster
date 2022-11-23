@@ -8,6 +8,7 @@ public class BreakableWindow : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     public int hitsReceived;
     public Sprite[] frames;
+    private bool _hotSinglePlayerInYourArea;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class BreakableWindow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Period))
+        if (Input.GetKeyDown(KeyCode.Period) && _hotSinglePlayerInYourArea)
         {
             OnHit();
         }
@@ -37,5 +38,15 @@ public class BreakableWindow : MonoBehaviour
     public void Reset()
     {
         hitsReceived = 0;
+    }
+    
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        _hotSinglePlayerInYourArea = true;
+    }
+    
+    void OnTriggerExit2D(Collider2D col)
+    {
+        _hotSinglePlayerInYourArea = false;
     }
 }

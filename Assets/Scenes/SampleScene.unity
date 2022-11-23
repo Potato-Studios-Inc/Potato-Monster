@@ -1110,7 +1110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514657239}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.4600005, y: 2.1, z: 0}
+  m_LocalPosition: {x: 7.46, y: 2.1, z: 0}
   m_LocalScale: {x: 1, y: 1.45, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1491,6 +1491,7 @@ GameObject:
   - component: {fileID: 695092099}
   - component: {fileID: 695092098}
   - component: {fileID: 695092100}
+  - component: {fileID: 695092101}
   m_Layer: 0
   m_Name: breakable-window
   m_TagString: Untagged
@@ -1586,6 +1587,32 @@ MonoBehaviour:
   - {fileID: -1953898968, guid: 35139910663946ddb60ebc290fd9ba67, type: 3}
   - {fileID: 2085436064, guid: 35139910663946ddb60ebc290fd9ba67, type: 3}
   - {fileID: 1542388169, guid: 35139910663946ddb60ebc290fd9ba67, type: 3}
+--- !u!61 &695092101
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695092097}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.004, y: -0.059}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.27, y: 0.44}
+  m_EdgeRadius: 0
 --- !u!1 &926788789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,7 +2122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217229787}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0017359, y: -0.0003398, z: 0}
+  m_LocalPosition: {x: 2.685001, y: 0.0409962, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2637,7 +2664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489639141}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.001737, y: 0.999664, z: 0}
+  m_LocalPosition: {x: 2.685, y: 1.041, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2798,7 +2825,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529968483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.48, y: -3.63, z: -9}
+  m_LocalPosition: {x: 1.637, y: -0.269, z: -9}
   m_LocalScale: {x: 0.4125, y: 0.4125, z: 0.64453125}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2826,7 +2853,7 @@ MonoBehaviour:
     m_Bits: 8
   canJump: 1
   isGrounded: 0
-  cameras: []
+  camerasParent: {fileID: 1033113142}
 --- !u!95 &1529968491
 Animator:
   serializedVersion: 4
@@ -3527,6 +3554,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 382789572710293552, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
+      propertyPath: m_Size.x
+      value: 0.872
+      objectReference: {fileID: 0}
+    - target: {fileID: 382789572710293552, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
+      propertyPath: m_Size.y
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 382789572710293552, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -3536,7 +3571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 382789572710293552, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
       propertyPath: m_Offset.y
-      value: -0.482
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 618977344644838804, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
       propertyPath: m_Offset.x
@@ -3630,7 +3665,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.25
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 618977344644838804, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
+    - {fileID: 7949171043785338286, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
+    - {fileID: 2148127853754502839, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 05e52fd824f9f44c98071c28f74ef1d6, type: 3}
 --- !u!1 &1864062445
 GameObject:
