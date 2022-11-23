@@ -51,6 +51,12 @@ public class playerMovement : MonoBehaviour
         
         //bool that checks if the player is falling
         var isFalling = rb.velocity.y < 0;
+        
+        //bool that checks if the player is jumping
+        var isJumping = rb.velocity.y > 0;
+        
+        //transform z position of the player is always 0
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 
         //Check if player is grounded with raycast 
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
