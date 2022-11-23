@@ -21,12 +21,20 @@ public class playerMovement : MonoBehaviour
     private static readonly int IsDead = Animator.StringToHash("IsDead");
     public GameObject camerasParent;
     private Camera[] _cameras;
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip jumpLandingSound;
+    public AudioClip bounceSound;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _cameras = camerasParent.GetComponentsInChildren<Camera>();
+        audioSource = GetComponent<AudioSource>();
+        jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
+        jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
+        bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
     }
 
     // Update is called once per frame
@@ -120,6 +128,7 @@ public class playerMovement : MonoBehaviour
             jumpValue = 0.0f;
             _isAimingToJump = false;
             canJump = true;
+            AudioSource.PlayOneShot(jumpSound);
         }
     }
 
