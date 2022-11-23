@@ -21,12 +21,20 @@ public class playerMovement : MonoBehaviour
     private static readonly int IsDead = Animator.StringToHash("IsDead");
     public GameObject camerasParent;
     private Camera[] _cameras;
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip jumpLandingSound;
+    public AudioClip bounceSound;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _cameras = camerasParent.GetComponentsInChildren<Camera>();
+        audioSource = GetComponent<AudioSource>();
+        jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
+        jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
+        bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
     }
 
     // Update is called once per frame
@@ -42,7 +50,7 @@ public class playerMovement : MonoBehaviour
         var inputX = Input.GetAxisRaw("Horizontal");
 
         //Check if player is grounded with raycast 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundMask);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
 
         //Make player bounce when hitting wall but can't bounce when hitting the ground
         if (inputX != 0 && !isGrounded)
@@ -83,7 +91,7 @@ public class playerMovement : MonoBehaviour
             OnAimingToJump();
         }
 
-        if (jumpValue >= 6f || Input.GetKeyUp("space"))
+        if (jumpValue >= 6f || Input.GetKeyUp("space") && isGrounded)
         {
             OnJump();
         }
@@ -120,6 +128,7 @@ public class playerMovement : MonoBehaviour
             jumpValue = 0.0f;
             _isAimingToJump = false;
             canJump = true;
+            audioSource.PlayOneShot(jumpSound, 0.7f);
         }
     }
 
