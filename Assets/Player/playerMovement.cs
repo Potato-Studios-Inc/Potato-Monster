@@ -18,6 +18,7 @@ public class playerMovement : MonoBehaviour
     private bool _isAimingToJump = false;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
+    private static readonly int IsDead = Animator.StringToHash("IsDead");
     public GameObject camerasParent;
     private Camera[] _cameras;
 
@@ -32,12 +33,17 @@ public class playerMovement : MonoBehaviour
     void Update()
     {
         UpdateActiveCamera();
-        
+        var isDead = _animator.GetBool(IsDead);
+        if (isDead)
+        {
+            return;
+        }
+
         var inputX = Input.GetAxisRaw("Horizontal");
 
         //Check if player is grounded with raycast 
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundMask);
-        
+
         //Make player bounce when hitting wall but can't bounce when hitting the ground
         if (inputX != 0 && !isGrounded)
         {
@@ -47,7 +53,7 @@ public class playerMovement : MonoBehaviour
         {
             rb.sharedMaterial = normalMat;
         }
-        
+
         //When player jumps, player cant control arrow keys
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -66,7 +72,7 @@ public class playerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
         }
-        
+
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
             OnStartAimingToJump();
@@ -81,8 +87,9 @@ public class playerMovement : MonoBehaviour
         {
             OnJump();
         }
+
         _animator.SetBool(IsAimingToJump, _isAimingToJump);
-        _animator.SetBool(IsWalking,inputX != 0);
+        _animator.SetBool(IsWalking, inputX != 0);
     }
 
     private void OnStartAimingToJump()
@@ -128,7 +135,8 @@ public class playerMovement : MonoBehaviour
             var cameraHeight = cameraSize;
             var cameraMin = new Vector2(cameraPos.x - cameraWidth, cameraPos.y - cameraHeight);
             var cameraMax = new Vector2(cameraPos.x + cameraWidth, cameraPos.y + cameraHeight);
-            var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y && playerPos.y < cameraMax.y;                            
+            var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y &&
+                           playerPos.y < cameraMax.y;
             _cameras[i].gameObject.SetActive(inCamera);
         }
     }
