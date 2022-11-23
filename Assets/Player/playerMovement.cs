@@ -48,6 +48,9 @@ public class playerMovement : MonoBehaviour
         }
 
         var inputX = Input.GetAxisRaw("Horizontal");
+        
+        //bool that checks if the player is falling
+        var isFalling = rb.velocity.y < 0;
 
         //Check if player is grounded with raycast 
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
@@ -98,6 +101,12 @@ public class playerMovement : MonoBehaviour
 
         _animator.SetBool(IsAimingToJump, _isAimingToJump);
         _animator.SetBool(IsWalking, inputX != 0);
+
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("on platform detected");
+        audioSource.PlayOneShot(jumpLandingSound, 0.3f);
     }
 
     private void OnStartAimingToJump()
