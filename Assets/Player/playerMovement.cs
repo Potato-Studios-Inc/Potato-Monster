@@ -128,7 +128,7 @@ public class playerMovement : MonoBehaviour
             jumpValue = 0.0f;
             _isAimingToJump = false;
             canJump = true;
-            AudioSource.PlayOneShot(jumpSound);
+            audioSource.PlayOneShot(jumpSound, 0.7f);
         }
     }
 
