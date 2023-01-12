@@ -118,6 +118,21 @@ public class playerMovement : MonoBehaviour
             jumpValue += 4.0f * Time.deltaTime;
         }
     }
+    
+    //play jumpSound only when player jumps
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            audioSource.PlayOneShot(jumpLandingSound, 0.7f);
+        }
+        /*
+        else if (other.gameObject.CompareTag("Wall"))
+        {
+            audioSource.PlayOneShot(bounceSound, 0.7f);
+        }
+        */
+    }
 
     private void OnJump()
     {
