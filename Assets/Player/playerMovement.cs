@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
-    private float walkSpeed = 2.3f;
+    private float walkSpeed = 1.3f;
     private Rigidbody2D rb;
     public float jumpValue = 0.0f;
 
@@ -18,24 +18,40 @@ public class playerMovement : MonoBehaviour
     private bool _isAimingToJump = false;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
-    public Camera[] cameras;
+    private static readonly int IsDead = Animator.StringToHash("IsDead");
+    public GameObject camerasParent;
+    private Camera[] _cameras;
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip jumpLandingSound;
+    public AudioClip bounceSound;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _cameras = camerasParent.GetComponentsInChildren<Camera>();
+        audioSource = GetComponent<AudioSource>();
+        jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
+        jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
+        bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateActiveCamera();
-        
+        var isDead = _animator.GetBool(IsDead);
+        if (isDead)
+        {
+            return;
+        }
+
         var inputX = Input.GetAxisRaw("Horizontal");
 
         //Check if player is grounded with raycast 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundMask);
-        
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
+
         //Make player bounce when hitting wall but can't bounce when hitting the ground
         if (inputX != 0 && !isGrounded)
         {
@@ -45,7 +61,7 @@ public class playerMovement : MonoBehaviour
         {
             rb.sharedMaterial = normalMat;
         }
-        
+
         //When player jumps, player cant control arrow keys
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -64,7 +80,7 @@ public class playerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
         }
-        
+
         if (Input.GetKeyDown("space") && isGrounded && canJump)
         {
             OnStartAimingToJump();
@@ -75,12 +91,13 @@ public class playerMovement : MonoBehaviour
             OnAimingToJump();
         }
 
-        if (jumpValue >= 10f || Input.GetKeyUp("space"))
+        if (jumpValue >= 6f || Input.GetKeyUp("space") && isGrounded)
         {
             OnJump();
         }
+
         _animator.SetBool(IsAimingToJump, _isAimingToJump);
-        _animator.SetBool(IsWalking,inputX != 0);
+        _animator.SetBool(IsWalking, inputX != 0);
     }
 
     private void OnStartAimingToJump()
@@ -94,11 +111,11 @@ public class playerMovement : MonoBehaviour
         //if quick press space, jumpValue will be 0.5f and if hold space it will increase
         if (jumpValue == 0.0f)
         {
-            jumpValue = 3.75f;
+            jumpValue = 2.5f;
         }
         else
         {
-            jumpValue += 8.0f * Time.deltaTime;
+            jumpValue += 4.0f * Time.deltaTime;
         }
     }
 
@@ -111,23 +128,25 @@ public class playerMovement : MonoBehaviour
             jumpValue = 0.0f;
             _isAimingToJump = false;
             canJump = true;
+            audioSource.PlayOneShot(jumpSound, 0.7f);
         }
     }
 
     private void UpdateActiveCamera()
     {
-        for (int i = 0; i < cameras.Length; i++)
+        for (int i = 0; i < _cameras.Length; i++)
         {
             // Check if player is in camera view
             var playerPos = rb.position;
-            var cameraPos = cameras[i].transform.position;
-            var cameraSize = cameras[i].orthographicSize;
-            var cameraWidth = cameraSize * cameras[i].aspect;
+            var cameraPos = _cameras[i].transform.position;
+            var cameraSize = _cameras[i].orthographicSize;
+            var cameraWidth = cameraSize * _cameras[i].aspect;
             var cameraHeight = cameraSize;
             var cameraMin = new Vector2(cameraPos.x - cameraWidth, cameraPos.y - cameraHeight);
             var cameraMax = new Vector2(cameraPos.x + cameraWidth, cameraPos.y + cameraHeight);
-            var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y && playerPos.y < cameraMax.y;                            
-            cameras[i].gameObject.SetActive(inCamera);
+            var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y &&
+                           playerPos.y < cameraMax.y;
+            _cameras[i].gameObject.SetActive(inCamera);
         }
     }
 }
