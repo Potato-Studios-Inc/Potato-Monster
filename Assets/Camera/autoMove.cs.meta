@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 07029b3e958f5e145b462c4ea9b2b5fb
+guid: 69adf0d98761242e7b6f71dd4417a505
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - audioMixer: {fileID: 24100000, guid: 04f2492515a1448d8aa0ef8c9493ee14, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
