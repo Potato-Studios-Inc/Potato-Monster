@@ -25,6 +25,7 @@ public class playerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip jumpLandingSound;
     public AudioClip bounceSound;
+    private bool _jetpackMode = false;
 
     private void Start()
     {
@@ -48,6 +49,7 @@ public class playerMovement : MonoBehaviour
         }
 
         var inputX = Input.GetAxisRaw("Horizontal");
+        var inputY = Input.GetAxisRaw("Vertical");
 
         //Check if player is grounded with raycast 
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
@@ -61,6 +63,12 @@ public class playerMovement : MonoBehaviour
         {
             rb.sharedMaterial = normalMat;
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            _jetpackMode = true;
+        }
+        var jetpackOn = _jetpackMode && inputY > 0;
 
         //When player jumps, player cant control arrow keys
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -76,9 +84,16 @@ public class playerMovement : MonoBehaviour
         }
 
         //Player can walk only if jumpValue is 0 and isGrounded
-        if (jumpValue == 0.0f && isGrounded)
+        if (jumpValue == 0.0f && isGrounded || jetpackOn)
         {
-            rb.velocity = new Vector2(inputX * walkSpeed, rb.velocity.y);
+            var x = inputX * walkSpeed;
+            var y = rb.velocity.y;
+            if (jetpackOn)
+            {
+                y = inputY * walkSpeed;
+            }
+
+            rb.velocity = new Vector2(x, y);
         }
 
         if (Input.GetKeyDown("space") && isGrounded && canJump)
@@ -118,7 +133,7 @@ public class playerMovement : MonoBehaviour
             jumpValue += 4.0f * Time.deltaTime;
         }
     }
-    
+
     //play jumpSound only when player jumps
     private void OnCollisionEnter2D(Collision2D other)
     {

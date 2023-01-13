@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace CameraMovement
 {
-    public class autoMove : MonoBehaviour
+    public class AutoMove : MonoBehaviour
     {
         public Rigidbody2D player;
         public Camera camera;
 
-        void Update()
+        private void Update()
         {
             var playerPos = player.position;
-            var (cameraMin, cameraMax) = cameraViewVectors();
-            var playerInView = inView(playerPos, cameraMin, cameraMax);
+            var (cameraMin, cameraMax) = CameraViewVectors();
+            var playerInView = InView(playerPos, cameraMin, cameraMax);
             var cameraSize = camera.orthographicSize;
             var cameraWidth = 2 * cameraSize * camera.aspect;
             var cameraHeight = 2 * cameraSize;
@@ -22,24 +22,20 @@ namespace CameraMovement
                     return;
                 case "left":
                     camera.transform.position += Vector3.left * cameraWidth;
-                    Debug.Log("left");
                     break;
                 case "right":
                     camera.transform.position += Vector3.right * cameraWidth;
-                    Debug.Log("right");
                     break;
                 case "up":
                     camera.transform.position += Vector3.up * cameraHeight;
-                    Debug.Log("up");
                     break;
                 case "down":
                     camera.transform.position += Vector3.down * cameraHeight;
-                    Debug.Log("down");
                     break;
             }
         }
 
-        private String inView(Vector2 objPos, Vector2 viewMin, Vector2 viewMax)
+        public static String InView(Vector2 objPos, Vector2 viewMin, Vector2 viewMax)
         {
             var rightOfMin = objPos.x > viewMin.x;
             var leftOfMax = objPos.x < viewMax.x;
@@ -73,7 +69,7 @@ namespace CameraMovement
             return "out of view";
         }
 
-        private (Vector2 cameraMin, Vector2 cameraMax) cameraViewVectors()
+        public (Vector2 cameraMin, Vector2 cameraMax) CameraViewVectors()
         {
             var cameraPos = camera.transform.position;
             var cameraSize = camera.orthographicSize;
