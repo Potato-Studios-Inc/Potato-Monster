@@ -162,6 +162,8 @@ public class playerMovement : MonoBehaviour
             var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y &&
                            playerPos.y < cameraMax.y;
             _cameras[i].gameObject.SetActive(inCamera);
+            //turn on audio listener only when camera is active
+            _cameras[i].GetComponent<AudioListener>().enabled = inCamera;
         }
     }
 }
