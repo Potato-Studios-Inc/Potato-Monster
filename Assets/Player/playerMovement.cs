@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class playerMovement : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class playerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip jumpLandingSound;
     public AudioClip bounceSound;
-    private bool _jetpackMode;
+    public bool jetpackMode;
     private List<Collision2D> _collidedGroundObjects = new();
 
     private void Start()
@@ -47,10 +48,10 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            _jetpackMode = true;
+            jetpackMode = true;
         }
 
-        var jetpackOn = _jetpackMode && inputY > 0;
+        var jetpackOn = jetpackMode && inputY > 0;
 
         //When player jumps, player cant control arrow keys
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
