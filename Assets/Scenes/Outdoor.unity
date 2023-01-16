@@ -1098,17 +1098,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpValue: 0
-  bounceMat: {fileID: 6200000, guid: 7208472df7cbe4375ac9ed614448ed2e, type: 2}
-  normalMat: {fileID: 6200000, guid: 18879cd2a57844617a618d5a4171c5c9, type: 2}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 8
   canJump: 1
   isGrounded: 0
   audioSource: {fileID: 0}
   jumpSound: {fileID: 0}
   jumpLandingSound: {fileID: 0}
   bounceSound: {fileID: 0}
+  jetpackMode: 0
 --- !u!61 &717527688
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1273,10 +1269,10 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 0.50339305, y: 0.5802761}
-  - {x: 0.42620403, y: 0.85721165}
+  - {x: 0.5009561, y: 0.6130622}
   - {x: 0.4262015, y: 0.61001307}
   - {x: -0.431629, y: 0.60940534}
-  - {x: -0.43191698, y: 0.8514761}
+  - {x: -0.5046755, y: 0.59701127}
   - {x: -0.5015815, y: 0.60243845}
   - {x: -0.5015615, y: -0.23907232}
   - {x: -0.42767218, y: -0.49753577}
@@ -2023,7 +2019,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0008816123, y: 0.2232809}
+  m_Offset: {x: -0.0018785298, y: 0.7356559}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2034,7 +2030,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.85717726, y: 1.2663131}
+  m_Size: {x: 1.0086751, y: 0.24156308}
   m_EdgeRadius: 0
 --- !u!1 &1696367030
 GameObject:
