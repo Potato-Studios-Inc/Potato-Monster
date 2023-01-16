@@ -19,7 +19,6 @@ public class platforms : MonoBehaviour
     {
         _lastPosition = prefab.transform.position;
         _platformWidth = prefab.GetComponent<SpriteRenderer>().size.x * prefab.transform.localScale.x;
-        Debug.Log(_platformWidth);
     }
 
     private Vector3 GetNextPosition()
@@ -56,8 +55,6 @@ public class platforms : MonoBehaviour
         }
 
         next.x += Random.Range(xPosDeltaMin, xPosDeltaMax);
-        Debug.Log("xPosMin: " + xPosMin + " xPosMax: " + xPosMax + " xPosDeltaMin: " + xPosDeltaMin +
-                  " xPosDeltaMax: " + xPosDeltaMax);
         return next;
     }
 
