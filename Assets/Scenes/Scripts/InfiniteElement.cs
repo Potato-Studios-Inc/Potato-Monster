@@ -9,34 +9,34 @@ namespace Scenes.Scripts
     {
         public AutoMove AutoMove;
         public GameObject prefab;
+        private Vector3 _lastPosition;
+        private float _elementHeight;
+
+        void Start()
+        {
+            _lastPosition = prefab.transform.position;
+            var prefabSprite = prefab.GetComponentInChildren<SpriteRenderer>();
+            _elementHeight = prefabSprite.size.y * prefabSprite.transform.localScale.y;
+            Debug.Log("Element height: " + _elementHeight);
+        }
+
+        private Vector3 GetNextPosition()
+        {
+            var next = _lastPosition;
+            next.y = _lastPosition.y + _elementHeight;
+
+            return next;
+        }
 
         void Update()
         {
-            var children = GetComponentsInChildren<Transform>();
-            if (children.Length == 0)
-            {
-                return;
-            }
-            for (int i = 0; i < children.Length; i++)
-            {
-                if (elementYFillsCameraView(children[i]))
-                {
-                    return;
-                }
-            }
-
-            // Spawn a new element in the camera view
             var (cameraMin, cameraMax) = AutoMove.CameraViewVectors();
-            var newElement = Instantiate(prefab, transform);
-            newElement.transform.position = new Vector3(prefab.transform.position.x, cameraMax.y + newElement.transform.localScale.y, prefab.transform.position.z);
-        }
 
-        bool elementYFillsCameraView(Transform element)
-        {
-            var (cameraMin, cameraMax) = AutoMove.CameraViewVectors();
-            var elementMinY = element.transform.position.y - element.transform.localScale.y / 2;
-            var elementMaxY = element.transform.position.y + element.transform.localScale.y / 2;
-            return elementMinY < cameraMin.y && elementMaxY > cameraMax.y;
+            if (cameraMax.y < _lastPosition.y) return;
+            var pos = GetNextPosition();
+            var newPlatform = Instantiate(prefab, transform);
+            newPlatform.transform.position = pos;
+            _lastPosition = pos;
         }
     }
 }

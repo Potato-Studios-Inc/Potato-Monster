@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 public class playerMovement : MonoBehaviour
 {
     private float walkSpeed = 1.3f;
+    private const float JetPackSpeed = 2f;
     private const float BounceSpeed = 1.3f;
     private Rigidbody2D rb;
     public float jumpValue;
@@ -53,49 +54,76 @@ public class playerMovement : MonoBehaviour
 
         var jetpackOn = jetpackMode && inputY > 0;
 
-        //When player jumps, player cant control arrow keys
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            _isAimingToJump = true;
-            _animator.SetBool(IsAimingToJump, true);
-        }
-        else if (Input.GetKeyUp(KeyCode.Space) && isGrounded)
-        {
-            _isAimingToJump = false;
-            _animator.SetBool(IsAimingToJump, false);
-            rb.velocity = new Vector2(rb.velocity.x, jumpValue);
-        }
-
         //Player can walk only if jumpValue is 0 and isGrounded
-        if (jumpValue == 0.0f && isGrounded || jetpackOn)
+        if (jumpValue == 0 && isGrounded || jetpackOn)
         {
             var x = inputX * walkSpeed;
             var y = rb.velocity.y;
             if (jetpackOn)
             {
-                y = inputY * walkSpeed;
+                x = inputX * JetPackSpeed;
+                y = inputY * JetPackSpeed;
             }
 
             rb.velocity = new Vector2(x, y);
         }
 
-        if (Input.GetKeyDown("space") && isGrounded && canJump)
+        if (Input.GetKeyUp("space"))
         {
-            OnStartAimingToJump();
+            OnSpaceUp();
+        }
+        else if (Input.GetKeyDown("space"))
+        {
+            OnSpaceDown();
         }
 
-        if (Input.GetKey("space") && isGrounded && canJump && _isAimingToJump)
+        if (Input.GetKey("space"))
         {
-            OnAimingToJump();
+            OnSpace();
         }
 
-        if (jumpValue >= 6f || Input.GetKeyUp("space") && isGrounded)
+        if (jumpValue >= 6f)
         {
             OnJump();
         }
 
         _animator.SetBool(IsAimingToJump, _isAimingToJump);
         _animator.SetBool(IsWalking, inputX != 0);
+    }
+
+    private void OnSpaceDown()
+    {
+        if (isGrounded)
+        {
+            _isAimingToJump = true;
+            _animator.SetBool(IsAimingToJump, true);
+            if (canJump)
+            {
+                OnStartAimingToJump();
+            }
+        }
+    }
+
+    private void OnSpace()
+    {
+        if (isGrounded && canJump && _isAimingToJump)
+        {
+            OnAimingToJump();
+        }
+    }
+    
+    private void OnSpaceUp()
+    {
+        if (isGrounded)
+        {
+            _isAimingToJump = false;
+            _animator.SetBool(IsAimingToJump, false);
+            rb.velocity = new Vector2(rb.velocity.x, jumpValue);
+            OnJump();
+        } else if (jumpValue > 0)
+        {
+            jumpValue = 0;
+        }
     }
 
     private void OnStartAimingToJump()
