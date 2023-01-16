@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMovement : MonoBehaviour
@@ -19,8 +16,6 @@ public class playerMovement : MonoBehaviour
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
     private static readonly int IsDead = Animator.StringToHash("IsDead");
-    public GameObject camerasParent;
-    private Camera[] _cameras;
     public AudioSource audioSource;
     public AudioClip jumpSound;
     public AudioClip jumpLandingSound;
@@ -31,7 +26,6 @@ public class playerMovement : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _cameras = camerasParent.GetComponentsInChildren<Camera>();
         audioSource = GetComponent<AudioSource>();
         jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
         jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
@@ -41,7 +35,6 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateActiveCamera();
         var isDead = _animator.GetBool(IsDead);
         if (isDead)
         {
@@ -159,26 +152,6 @@ public class playerMovement : MonoBehaviour
             _isAimingToJump = false;
             canJump = true;
             audioSource.PlayOneShot(jumpSound, 0.7f);
-        }
-    }
-
-    private void UpdateActiveCamera()
-    {
-        for (int i = 0; i < _cameras.Length; i++)
-        {
-            // Check if player is in camera view
-            var playerPos = rb.position;
-            var cameraPos = _cameras[i].transform.position;
-            var cameraSize = _cameras[i].orthographicSize;
-            var cameraWidth = cameraSize * _cameras[i].aspect;
-            var cameraHeight = cameraSize;
-            var cameraMin = new Vector2(cameraPos.x - cameraWidth, cameraPos.y - cameraHeight);
-            var cameraMax = new Vector2(cameraPos.x + cameraWidth, cameraPos.y + cameraHeight);
-            var inCamera = playerPos.x > cameraMin.x && playerPos.x < cameraMax.x && playerPos.y > cameraMin.y &&
-                           playerPos.y < cameraMax.y;
-            _cameras[i].gameObject.SetActive(inCamera);
-            //turn on audio listener only when camera is active
-            _cameras[i].GetComponent<AudioListener>().enabled = inCamera;
         }
     }
 }
