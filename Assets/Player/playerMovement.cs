@@ -5,10 +5,9 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour
 {
     private float walkSpeed = 1.3f;
+    private const float BounceSpeed = 1.3f;
     private Rigidbody2D rb;
     public float jumpValue;
-
-    public PhysicsMaterial2D bounceMat, normalMat;
 
     public bool canJump = true;
     public bool isGrounded;
@@ -45,19 +44,6 @@ public class playerMovement : MonoBehaviour
 
         var inputX = Input.GetAxisRaw("Horizontal");
         var inputY = Input.GetAxisRaw("Vertical");
-
-        //Check if player is grounded with raycast 
-        //isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
-
-        //Make player bounce when hitting wall but can't bounce when hitting the ground
-        if (inputX != 0 && !isGrounded)
-        {
-            rb.sharedMaterial = bounceMat;
-        }
-        else
-        {
-            rb.sharedMaterial = normalMat;
-        }
 
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -134,19 +120,20 @@ public class playerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         var isGround = other.gameObject.CompareTag("Ground");
+        var isWall = other.gameObject.CompareTag("Wall");
         if (isGround)
         {
-            audioSource.PlayOneShot(jumpLandingSound, 0.7f);
-            isGrounded = true;
             _collidedGroundObjects.Add(other);
-            Debug.Log("Grounded");
+            if (!isGrounded)
+            {
+                OnGroundEnter();
+                isGrounded = true;
+            }
         }
-        /*
-        else if (other.gameObject.CompareTag("Wall"))
+        else if (isWall)
         {
-            audioSource.PlayOneShot(bounceSound, 0.7f);
+            OnWallCollision(other);
         }
-        */
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -156,8 +143,27 @@ public class playerMovement : MonoBehaviour
         {
             _collidedGroundObjects.Remove(other);
             isGrounded = _collidedGroundObjects.Count > 0;
-            Debug.Log(isGrounded ? "Still grounded" : "Not grounded");
+            if (!isGrounded)
+            {
+                OnGroundExit();
+            }
         }
+    }
+
+    private void OnGroundEnter()
+    {
+        audioSource.PlayOneShot(jumpLandingSound, 0.7f);
+    }
+
+    private void OnGroundExit()
+    {
+    }
+
+    private void OnWallCollision(Collision2D wall)
+    {
+        var wallOnTheRightSide = wall.transform.position.x > transform.position.x;
+        audioSource.PlayOneShot(bounceSound, 0.7f);
+        rb.velocity = new Vector2(wallOnTheRightSide ? -BounceSpeed : BounceSpeed, rb.velocity.y);
     }
 
     private void OnJump()
