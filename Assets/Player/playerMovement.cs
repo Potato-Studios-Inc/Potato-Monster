@@ -1,18 +1,19 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
     private float walkSpeed = 1.3f;
     private Rigidbody2D rb;
-    public float jumpValue = 0.0f;
+    public float jumpValue;
 
     public PhysicsMaterial2D bounceMat, normalMat;
-    public LayerMask groundMask;
 
     public bool canJump = true;
     public bool isGrounded;
     private Animator _animator;
-    private bool _isAimingToJump = false;
+    private bool _isAimingToJump;
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int IsAimingToJump = Animator.StringToHash("IsAimingToJump");
     private static readonly int IsDead = Animator.StringToHash("IsDead");
@@ -20,7 +21,8 @@ public class playerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip jumpLandingSound;
     public AudioClip bounceSound;
-    private bool _jetpackMode = false;
+    private bool _jetpackMode;
+    private List<Collision2D> _collidedGroundObjects = new();
 
     private void Start()
     {
@@ -45,7 +47,7 @@ public class playerMovement : MonoBehaviour
         var inputY = Input.GetAxisRaw("Vertical");
 
         //Check if player is grounded with raycast 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
+        //isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.2f, groundMask);
 
         //Make player bounce when hitting wall but can't bounce when hitting the ground
         if (inputX != 0 && !isGrounded)
@@ -61,6 +63,7 @@ public class playerMovement : MonoBehaviour
         {
             _jetpackMode = true;
         }
+
         var jetpackOn = _jetpackMode && inputY > 0;
 
         //When player jumps, player cant control arrow keys
@@ -130,9 +133,13 @@ public class playerMovement : MonoBehaviour
     //play jumpSound only when player jumps
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        var isGround = other.gameObject.CompareTag("Ground");
+        if (isGround)
         {
             audioSource.PlayOneShot(jumpLandingSound, 0.7f);
+            isGrounded = true;
+            _collidedGroundObjects.Add(other);
+            Debug.Log("Grounded");
         }
         /*
         else if (other.gameObject.CompareTag("Wall"))
@@ -140,6 +147,17 @@ public class playerMovement : MonoBehaviour
             audioSource.PlayOneShot(bounceSound, 0.7f);
         }
         */
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        var isGround = other.gameObject.CompareTag("Ground");
+        if (isGround)
+        {
+            _collidedGroundObjects.Remove(other);
+            isGrounded = _collidedGroundObjects.Count > 0;
+            Debug.Log(isGrounded ? "Still grounded" : "Not grounded");
+        }
     }
 
     private void OnJump()

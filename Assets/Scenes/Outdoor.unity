@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 27930979}
   m_Layer: 3
   m_Name: grass
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 49560863}
   m_Layer: 3
   m_Name: walls1_0 (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 154521858}
   m_Layer: 3
   m_Name: walls1_0
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 250210344}
   m_Layer: 3
   m_Name: walls1_1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 649707983}
   m_Layer: 3
   m_Name: grass (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1105,7 +1105,6 @@ MonoBehaviour:
     m_Bits: 8
   canJump: 1
   isGrounded: 0
-  camerasParent: {fileID: 1602240905}
   audioSource: {fileID: 0}
   jumpSound: {fileID: 0}
   jumpLandingSound: {fileID: 0}
@@ -1217,7 +1216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717527683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.798, y: -6.075, z: -3}
+  m_LocalPosition: {x: -1.81, y: -5.87, z: -3}
   m_LocalScale: {x: 0.4125, y: 0.4125, z: 0.64453125}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1438,7 +1437,7 @@ GameObject:
   - component: {fileID: 882336050}
   m_Layer: 3
   m_Name: walls1_1 (5)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1549,7 +1548,7 @@ GameObject:
   - component: {fileID: 1011360894}
   m_Layer: 3
   m_Name: walls1_0 (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2050,7 +2049,7 @@ GameObject:
   - component: {fileID: 1696367032}
   m_Layer: 3
   m_Name: walls1_1 (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2161,7 +2160,7 @@ GameObject:
   - component: {fileID: 1748458990}
   m_Layer: 3
   m_Name: grass (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2272,7 +2271,7 @@ GameObject:
   - component: {fileID: 1777678902}
   m_Layer: 3
   m_Name: grass (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2383,7 +2382,7 @@ GameObject:
   - component: {fileID: 1779299112}
   m_Layer: 3
   m_Name: walls1_1 (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2494,7 +2493,7 @@ GameObject:
   - component: {fileID: 1824540721}
   m_Layer: 3
   m_Name: walls1_1 (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2605,7 +2604,7 @@ GameObject:
   - component: {fileID: 1905232607}
   m_Layer: 3
   m_Name: grass (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2716,7 +2715,7 @@ GameObject:
   - component: {fileID: 2043923821}
   m_Layer: 3
   m_Name: walls1_1 (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
