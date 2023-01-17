@@ -9,11 +9,13 @@ public class BreakableWindow : MonoBehaviour
     public int hitsReceived;
     public Sprite[] frames;
     private bool _hotSinglePlayerInYourArea;
+    public BoxCollider2D endZone;
 
     // Start is called before the first frame update
     void Start()
     {
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        endZone.enabled = false;
     }
 
     // Update is called once per frame
@@ -27,25 +29,40 @@ public class BreakableWindow : MonoBehaviour
         _spriteRenderer.sprite = frames[hitsReceived];
     }
 
-    public void OnHit()
+    private bool IsDestroyed()
     {
-        if (hitsReceived < frames.Length - 1)
+        return hitsReceived >= frames.Length - 1;
+    }
+
+    private void OnHit()
+    {
+        if (!IsDestroyed())
         {
             hitsReceived++;
         }
+        
+        if (IsDestroyed())
+        {
+            OnDestroyed();
+        }
+    }
+
+    private void OnDestroyed()
+    {
+        endZone.enabled = true;
     }
 
     public void Reset()
     {
         hitsReceived = 0;
     }
-    
-    void OnTriggerEnter2D(Collider2D col)
+
+    private void OnTriggerEnter2D(Collider2D col)
     {
         _hotSinglePlayerInYourArea = true;
     }
-    
-    void OnTriggerExit2D(Collider2D col)
+
+    private void OnTriggerExit2D(Collider2D col)
     {
         _hotSinglePlayerInYourArea = false;
     }
