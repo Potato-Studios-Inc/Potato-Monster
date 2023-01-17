@@ -24,6 +24,8 @@ public class playerMovement : MonoBehaviour
     public AudioClip bounceSound;
     public bool jetpackMode;
     private List<Collision2D> _collidedGroundObjects = new();
+    private bool _onLatter;
+    private float _gravityScale;
 
     private void Start()
     {
@@ -33,6 +35,7 @@ public class playerMovement : MonoBehaviour
         jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
         jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
         bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
+        _gravityScale = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -41,6 +44,7 @@ public class playerMovement : MonoBehaviour
         var isDead = _animator.GetBool(IsDead);
         if (isDead)
         {
+            rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
 
@@ -55,11 +59,15 @@ public class playerMovement : MonoBehaviour
         var jetpackOn = jetpackMode && inputY > 0;
 
         //Player can walk only if jumpValue is 0 and isGrounded
-        if (jumpValue == 0 && isGrounded || jetpackOn)
+        if (jumpValue == 0 && (isGrounded || jetpackOn || _onLatter))
         {
             var x = inputX * walkSpeed;
             var y = rb.velocity.y;
-            if (jetpackOn)
+            if (_onLatter)
+            {
+                y = inputY * walkSpeed;
+            }
+            else if (jetpackOn)
             {
                 x = inputX * JetPackSpeed;
                 y = inputY * JetPackSpeed;
@@ -111,7 +119,7 @@ public class playerMovement : MonoBehaviour
             OnAimingToJump();
         }
     }
-    
+
     private void OnSpaceUp()
     {
         if (isGrounded)
@@ -120,7 +128,8 @@ public class playerMovement : MonoBehaviour
             _animator.SetBool(IsAimingToJump, false);
             rb.velocity = new Vector2(rb.velocity.x, jumpValue);
             OnJump();
-        } else if (jumpValue > 0)
+        }
+        else if (jumpValue > 0)
         {
             jumpValue = 0;
         }
@@ -178,6 +187,24 @@ public class playerMovement : MonoBehaviour
             }
         }
     }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var isLatter = other.gameObject.CompareTag("Latter");
+        if (isLatter)
+        {
+            OnLatterEnter();
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        var isLatter = other.gameObject.CompareTag("Latter");
+        if (isLatter)
+        {
+            OnLatterExit();
+        }
+    }
 
     private void OnGroundEnter()
     {
@@ -186,6 +213,18 @@ public class playerMovement : MonoBehaviour
 
     private void OnGroundExit()
     {
+    }
+
+    private void OnLatterEnter()
+    {
+        _onLatter = true;
+        rb.gravityScale = 0;
+    }
+
+    private void OnLatterExit()
+    {
+        _onLatter = false;
+        rb.gravityScale = _gravityScale;
     }
 
     private void OnWallCollision(Collision2D wall)
