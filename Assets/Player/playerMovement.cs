@@ -44,6 +44,7 @@ public class playerMovement : MonoBehaviour
         var isDead = _animator.GetBool(IsDead);
         if (isDead)
         {
+            rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
 
