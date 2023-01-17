@@ -69,3 +69,7 @@ crashlytics-build.properties
 
 # Crash mem dump
 *.blob
+
+build*
+*.app
+*.dmg
