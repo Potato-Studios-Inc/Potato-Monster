@@ -11,14 +11,11 @@ using TMPro;
 
 public class TypeWriter : MonoBehaviour
 {
-	Text _text;
-	TMP_Text _tmpProText;
-	string writer;
-	public AudioClip textSound;
+	private Text _text;
+	private TMP_Text _tmpProText;
+	string _writer;
 	public AudioSource audioSource;
-
-
-
+	
 	[SerializeField] float delayBeforeStart = 0f;
 	[SerializeField] float timeBtwChars = 0.1f;
 	[SerializeField] string leadingChar = "";
@@ -27,38 +24,35 @@ public class TypeWriter : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		audioSource = GetComponent<AudioSource>();
 		_text = GetComponent<Text>()!;
 		_tmpProText = GetComponent<TMP_Text>()!;
-		textSound = Resources.Load("Sounds/textSound") as AudioClip;
-
 
 		if(_text != null)
         {
-			writer = _text.text;
+			_writer = _text.text;
 			_text.text = "";
 
-			StartCoroutine("TypeWriterText");
+			StartCoroutine(nameof(TypeWriterText));
 		}
 
 		if (_tmpProText != null)
 		{
-			writer = _tmpProText.text;
+			_writer = _tmpProText.text;
 			_tmpProText.text = "";
 
-			StartCoroutine("TypeWriterTMP");
+			StartCoroutine(nameof(TypeWriterTMP));
 		}
 		
 		audioSource.Play();
 	}
 
-	IEnumerator TypeWriterText()
+	private IEnumerator TypeWriterText()
 	{
 		_text.text = leadingCharBeforeDelay ? leadingChar : "";
 
 		yield return new WaitForSeconds(delayBeforeStart);
 
-		foreach (char c in writer)
+		foreach (char c in _writer)
 		{
 			if (_text.text.Length > 0)
 			{
@@ -80,13 +74,13 @@ public class TypeWriter : MonoBehaviour
 		}
 	}
 
-	IEnumerator TypeWriterTMP()
+	public IEnumerator TypeWriterTMP()
     {
         _tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
         yield return new WaitForSeconds(delayBeforeStart);
 
-		foreach (char c in writer)
+		foreach (char c in _writer)
 		{
 			if (_tmpProText.text.Length > 0)
 			{
