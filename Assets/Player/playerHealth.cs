@@ -69,7 +69,6 @@ namespace Player
                 {
                     var damage = (int)((v - fallThreshold) * fallMultiplier);
                     TakeDamage(damage);
-                    Debug.Log("Took " + damage + " damage");
                 }
             }
         }
