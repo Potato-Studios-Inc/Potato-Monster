@@ -64,7 +64,6 @@ namespace Player
             if (isGround)
             {
                 var v = -_velocity.y;
-                Debug.Log("Hit ground with velocity: " + v);
                 if (v >= fallThreshold)
                 {
                     var damage = (int)((v - fallThreshold) * fallMultiplier);
