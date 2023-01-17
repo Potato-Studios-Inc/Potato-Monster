@@ -11,7 +11,7 @@ public class BreakableWindow : MonoBehaviour
     private bool _hotSinglePlayerInYourArea;
     public BoxCollider2D endZone;
     public AudioSource audioSource;
-    public AudioClip glasSound;
+    public AudioClip glassSound;
     public AudioClip attackSound;
 
 
@@ -21,7 +21,7 @@ public class BreakableWindow : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         attackSound = Resources.Load("Sounds/attackSound") as AudioClip;
-        glasSound = Resources.Load("Sounds/glassBreak") as AudioClip;
+        glassSound = Resources.Load("Sounds/glassBreak") as AudioClip;
         _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         endZone.enabled = false;
     }
@@ -52,7 +52,7 @@ public class BreakableWindow : MonoBehaviour
         
         if (IsDestroyed())
         {
-            audioSource.PlayOneShot(glasSound, 0.7f);
+            audioSource.PlayOneShot(glassSound, 0.7f);
             OnDestroyed();
         }
     }
