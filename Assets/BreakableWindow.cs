@@ -14,8 +14,6 @@ public class BreakableWindow : MonoBehaviour
     public AudioClip glassSound;
     public AudioClip attackSound;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
