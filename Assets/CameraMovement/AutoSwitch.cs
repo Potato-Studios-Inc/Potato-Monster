@@ -12,6 +12,7 @@ namespace CameraMovement
         {
             _cameras = GetComponentsInChildren<Camera>();
             _audioListeners = GetComponentsInChildren<AudioListener>();
+            _audioListeners[0].enabled = true;
         }
         
         private void Update()

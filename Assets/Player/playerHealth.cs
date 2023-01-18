@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Player
 {
@@ -19,6 +20,15 @@ namespace Player
             _animator = GetComponent<Animator>();
             DontDestroyOnLoad(gameOverMenu);
          
+        private Rigidbody2D _rb;
+        private UnityEngine.Vector2 _velocity;
+        public float fallThreshold = 6;
+        public float fallMultiplier = 20;
+
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         
@@ -26,12 +36,15 @@ namespace Player
         private void Update()
         {
             
+            _velocity = _rb.velocity;
             var isDead = _animator.GetBool(IsDead);
             if (!isDead && health <= 0)
             {
                 Die();
                 playerHealth.OnPlayerDeath?.Invoke();
             } else if (isDead && health > 0)
+            }
+            else if (isDead && health > 0)
             {
                 Revive();
             }
@@ -57,7 +70,7 @@ namespace Player
         {
             _animator.SetBool(IsDead, true);
         }
-        
+
         void Revive()
         {
             _animator.SetBool(IsDead, false);
@@ -98,6 +111,20 @@ namespace Player
         public void GoToMainMenu()
         {
             SceneManager.LoadScene("Menu");
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            var isGround = other.gameObject.CompareTag("Ground");
+            if (isGround)
+            {
+                var v = -_velocity.y;
+                if (v >= fallThreshold)
+                {
+                    var damage = (int)((v - fallThreshold) * fallMultiplier);
+                    TakeDamage(damage);
+                }
+            }
         }
     }
 }

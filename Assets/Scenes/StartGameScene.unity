@@ -570,7 +570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Start game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
   m_sharedMaterial: {fileID: 1999166912579902745, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
@@ -785,7 +785,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -249.93, y: 183}
+  m_AnchoredPosition: {x: -264.09, y: 182}
   m_SizeDelta: {x: 239.1317, y: 88.236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1811842402
@@ -896,6 +896,8 @@ GameObject:
   - component: {fileID: 1971680628}
   - component: {fileID: 1971680630}
   - component: {fileID: 1971680629}
+  - component: {fileID: 1971680631}
+  - component: {fileID: 1971680632}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -943,15 +945,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Are you ready for the most intens game you will ever play ?\nAfter being
-    shot down during covid, Chef De Pommes famous resturant le Frites boucles, have
-    been in a alot of financial dept and close to bankruptcy. Chef went down to the
-    lab in his basement to make a new creation. After hours of GMO process, his experiments
-    finally paid off. IT IS ALIVE!!!\n\nThe \rPotato Monster opened its eyes and
-    looked up at his creator. But Little Potato Monster quickly realized that Chef
-    De Pommes was Evil and would force him into Slavery in His Kitchen. Therefore,
-    Potato monster\r \ndecided to Jump his way up through the Kitchen to hopefully
-    start a new life as a free potato."
+  m_text: 'Are you ready for the most intense game you will ever play? After being
+    shot down during the COVID-19 pandemic, Chef De Pommes'' famous restaurant, Le
+    Frites Boucles, has been in a lot of financial debt and is close to bankruptcy.
+    Chef went down to the lab in his basement to make a new creation. After hours
+    of GMO processing, his experiments finally paid off. IT IS ALIVE!!!
+
+
+    The
+    Potato Monster opened its eyes and looked up at its creator. But the Little Potato
+    Monster quickly realized that Chef De Pommes was evil and would force him into
+    slavery in his kitchen. Therefore, the Potato Monster decided to jump its way
+    up through the kitchen to hopefully start a new life as a free potato.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
   m_sharedMaterial: {fileID: 1999166912579902745, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
@@ -1028,3 +1033,116 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971680627}
   m_CullTransparentMesh: 1
+--- !u!114 &1971680631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971680627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99415e0c2b8f44a098c27f977cc81915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  delayBeforeStart: 0
+  timeBtwChars: 0.02
+  leadingChar: 
+  leadingCharBeforeDelay: 0
+--- !u!82 &1971680632
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971680627}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 04f2492515a1448d8aa0ef8c9493ee14, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 7c0dde52ea58442bbbafe5a80dd52197, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.348
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
