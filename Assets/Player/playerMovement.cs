@@ -23,10 +23,12 @@ public class playerMovement : MonoBehaviour
     public AudioClip jumpLandingSound;
     public AudioClip bounceSound;
     public AudioClip ingameSound;
+    public AudioClip itemSound;
     public bool jetpackMode;
     private List<Collision2D> _collidedGroundObjects = new();
     private bool _onLatter;
     private float _gravityScale;
+    public SpriteRenderer crown;
 
     private void Start()
     {
@@ -37,7 +39,10 @@ public class playerMovement : MonoBehaviour
         jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
         jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
         bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
+        itemSound = Resources.Load("Sounds/itemSound") as AudioClip;
+
         _gravityScale = rb.gravityScale;
+        crown.enabled = false;
     }
 
     // Update is called once per frame
@@ -52,7 +57,7 @@ public class playerMovement : MonoBehaviour
         
         if (!audioSource.isPlaying)
         {
-            audioSource.PlayOneShot(ingameSound, 0.1f);
+            audioSource.PlayOneShot(ingameSound, 0.05f);
         }        
 
         var inputX = Input.GetAxisRaw("Horizontal");
@@ -201,6 +206,14 @@ public class playerMovement : MonoBehaviour
         if (isLatter)
         {
             OnLatterEnter();
+        }
+        
+        var isPotatoCrown = other.gameObject.CompareTag("PotatoCrown");
+        if (isPotatoCrown)
+        {
+            Destroy(other.gameObject);
+            crown.enabled = true;
+            audioSource.PlayOneShot(itemSound, 0.7f);
         }
     }
     
