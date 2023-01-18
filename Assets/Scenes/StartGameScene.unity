@@ -570,7 +570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Start game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
   m_sharedMaterial: {fileID: 1999166912579902745, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
@@ -1045,7 +1045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99415e0c2b8f44a098c27f977cc81915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textSound: {fileID: 0}
   audioSource: {fileID: 0}
   delayBeforeStart: 0
   timeBtwChars: 0.02
