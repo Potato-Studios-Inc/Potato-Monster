@@ -22,6 +22,7 @@ public class playerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip jumpLandingSound;
     public AudioClip bounceSound;
+    public AudioClip ingameSound;
     public bool jetpackMode;
     private List<Collision2D> _collidedGroundObjects = new();
     private bool _onLatter;
@@ -32,6 +33,7 @@ public class playerMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        ingameSound = Resources.Load<AudioClip>("Sounds/ingameSound");
         jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
         jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
         bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
@@ -47,6 +49,11 @@ public class playerMovement : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
+        
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(ingameSound, 0.1f);
+        }        
 
         var inputX = Input.GetAxisRaw("Horizontal");
         var inputY = Input.GetAxisRaw("Vertical");
