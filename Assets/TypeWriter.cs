@@ -24,6 +24,7 @@ public class TypeWriter : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		audioSource = GetComponent<AudioSource>();
 		_text = GetComponent<Text>()!;
 		_tmpProText = GetComponent<TMP_Text>()!;
 
