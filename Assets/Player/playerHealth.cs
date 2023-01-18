@@ -14,12 +14,7 @@ namespace Player
         public GameObject gameOverMenu;
         private Animator _animator;
         public static event Action OnPlayerDeath;
-      
-        private void Start()
-        {
-            _animator = GetComponent<Animator>();
-            DontDestroyOnLoad(gameOverMenu);
-         
+
         private Rigidbody2D _rb;
         private UnityEngine.Vector2 _velocity;
         public float fallThreshold = 6;
@@ -29,32 +24,28 @@ namespace Player
         {
             _animator = GetComponent<Animator>();
             _rb = GetComponent<Rigidbody2D>();
+            DontDestroyOnLoad(gameOverMenu);
         }
 
-        
 
         private void Update()
         {
-            
             _velocity = _rb.velocity;
             var isDead = _animator.GetBool(IsDead);
             if (!isDead && health <= 0)
             {
                 Die();
-                playerHealth.OnPlayerDeath?.Invoke();
-            } else if (isDead && health > 0)
+                OnPlayerDeath?.Invoke();
             }
             else if (isDead && health > 0)
             {
                 Revive();
             }
-
         }
 
         public void TakeDamage(int damage)
         {
             health -= damage;
-          
         }
 
         public void Recover(int heal)
@@ -74,7 +65,6 @@ namespace Player
         void Revive()
         {
             _animator.SetBool(IsDead, false);
-           
         }
 
         public void OnEnable()
@@ -85,7 +75,6 @@ namespace Player
         public void OnDisable()
         {
             playerHealth.OnPlayerDeath -= EnableGameOverMenu;
-
         }
 
         public void EnableGameOverMenu()
@@ -97,7 +86,7 @@ namespace Player
         //{
         //    playerHealth.OnPlayerStart += DisableGameOverMenu;
         //}
-       
+
         //public void DisableGameOverMenu()
         //{
         //    gameOverMenu.SetActive(false);
