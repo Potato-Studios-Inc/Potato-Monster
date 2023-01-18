@@ -1511,6 +1511,7 @@ MonoBehaviour:
   jumpLandingSound: {fileID: 0}
   bounceSound: {fileID: 0}
   ingameSound: {fileID: 0}
+  itemSound: {fileID: 0}
   jetpackMode: 0
   crown: {fileID: 698389138}
 --- !u!61 &717527688
@@ -3462,7 +3463,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791774753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.595, y: -5.739, z: 0}
+  m_LocalPosition: {x: -6.595, y: -5.739, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
