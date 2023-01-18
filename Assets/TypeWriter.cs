@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,6 +16,7 @@ public class TypeWriter : MonoBehaviour
 	private TMP_Text _tmpProText;
 	string _writer;
 	public AudioSource audioSource;
+	public GameObject ButtonCanvas;
 	
 	[SerializeField] float delayBeforeStart = 0f;
 	[SerializeField] float timeBtwChars = 0.1f;
@@ -72,7 +74,13 @@ public class TypeWriter : MonoBehaviour
 		if (leadingChar == "")
 		{
 			audioSource.Stop();
+
 		}
+	}
+
+	public void EnableButton()
+    {
+		ButtonCanvas.SetActive(true);
 	}
 
 	public IEnumerator TypeWriterTMP()
@@ -100,6 +108,7 @@ public class TypeWriter : MonoBehaviour
 		if (leadingChar == "")
 		{
 			audioSource.Stop();
+			EnableButton();
 		}
 	}
 }
