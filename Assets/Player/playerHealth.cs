@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Vector2 = System.Numerics.Vector2;
 
 namespace Player
@@ -51,6 +52,7 @@ namespace Player
         void Die()
         {
             _animator.SetBool(IsDead, true);
+            SceneManager.LoadScene("GameOverMenu", LoadSceneMode.Additive);
         }
 
         void Revive()
