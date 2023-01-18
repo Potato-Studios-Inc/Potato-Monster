@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: OPTIONS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
   m_sharedMaterial: {fileID: 1999166912579902745, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
@@ -208,14 +208,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.7
-  m_fontSizeBase: 48
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 108
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1015,7 +1015,6 @@ GameObject:
   - component: {fileID: 612705362}
   - component: {fileID: 612705366}
   - component: {fileID: 612705365}
-  - component: {fileID: 612705364}
   - component: {fileID: 612705363}
   m_Layer: 0
   m_Name: ControlsMenu
@@ -1060,20 +1059,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 8824b45cdcdddd14b8deb5ac50ca6ad8, type: 2}
---- !u!114 &612705364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 612705361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eece0aa78b44e1419dcb4efff7a47b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicator: {fileID: 1630712485}
-  moveDelay: 0.2
 --- !u!114 &612705365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1573,7 +1558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37.944, y: -25.9887}
+  m_AnchoredPosition: {x: -0.0000076294, y: -3.2237}
   m_SizeDelta: {x: 235.89, y: 166.2973}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &939149420
@@ -1596,10 +1581,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'arrows will control the Potato
+  m_text: 'Arrows will control the Potato.
 
-    Space will make the potato Jump. The
-    longer you hold it down, the higher you jump'
+
+    Space will make the potato Jump.
+    The longer you hold it down, the higher you jump.
+
+
+    Dot can be used to interact
+    with objects.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
   m_sharedMaterial: {fileID: 1999166912579902745, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
@@ -1626,7 +1616,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.05
+  m_fontSize: 18.1
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2554,7 +2544,6 @@ GameObject:
   - component: {fileID: 1231619895}
   - component: {fileID: 1231619898}
   - component: {fileID: 1231619897}
-  - component: {fileID: 1231619896}
   - component: {fileID: 1231619899}
   m_Layer: 0
   m_Name: OptionsMenu
@@ -2587,20 +2576,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1231619896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231619894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eece0aa78b44e1419dcb4efff7a47b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  indicator: {fileID: 1630712485}
-  moveDelay: 0.2
 --- !u!114 &1231619897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3374,7 +3349,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Controls
+  m_text: CONTROLS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
   m_sharedMaterial: {fileID: 1999166912579902745, guid: 93e469a08e6c6a144bba2c29e5471682, type: 2}
@@ -3401,14 +3376,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 71.7
-  m_fontSizeBase: 48
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 108
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3536,14 +3511,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.45
-  m_fontSizeBase: 48
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 108
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
