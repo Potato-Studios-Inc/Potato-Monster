@@ -65,7 +65,7 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            jetpackMode = true;
+            //jetpackMode = true;
         }
 
         var jetpackOn = jetpackMode && inputY > 0;
