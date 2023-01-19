@@ -22,20 +22,27 @@ public class playerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip jumpLandingSound;
     public AudioClip bounceSound;
+    public AudioClip ingameSound;
+    public AudioClip itemSound;
     public bool jetpackMode;
     private List<Collision2D> _collidedGroundObjects = new();
     private bool _onLatter;
     private float _gravityScale;
+    public SpriteRenderer crown;
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        ingameSound = Resources.Load<AudioClip>("Sounds/ingameSound");
         jumpSound = Resources.Load("PlayerSounds/jump") as AudioClip;
         jumpLandingSound = Resources.Load("PlayerSounds/jump landing") as AudioClip;
         bounceSound = Resources.Load("PlayerSounds/bounce") as AudioClip;
+        itemSound = Resources.Load("Sounds/itemSound") as AudioClip;
+
         _gravityScale = rb.gravityScale;
+        crown.enabled = false;
     }
 
     // Update is called once per frame
@@ -47,6 +54,11 @@ public class playerMovement : MonoBehaviour
             rb.velocity = new Vector2(0, rb.velocity.y);
             return;
         }
+        
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(ingameSound, 0.05f);
+        }        
 
         var inputX = Input.GetAxisRaw("Horizontal");
         var inputY = Input.GetAxisRaw("Vertical");
@@ -194,6 +206,14 @@ public class playerMovement : MonoBehaviour
         if (isLatter)
         {
             OnLatterEnter();
+        }
+        
+        var isPotatoCrown = other.gameObject.CompareTag("PotatoCrown");
+        if (isPotatoCrown)
+        {
+            Destroy(other.gameObject);
+            crown.enabled = true;
+            audioSource.PlayOneShot(itemSound, 0.7f);
         }
     }
     
