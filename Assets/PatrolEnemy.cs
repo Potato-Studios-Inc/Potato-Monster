@@ -15,7 +15,7 @@ public class PatrolEnemy : MonoBehaviour
     public playerHealth player;
     public AudioSource audioSource;
     public AudioClip snailSound;
-    public Camera camera;
+    //public Camera camera;
     bool once;
 
     private void Start()
@@ -27,9 +27,10 @@ public class PatrolEnemy : MonoBehaviour
 
     private void Update()
     {
-        //Check if snail is in camera view
-        if (camera.WorldToViewportPoint(transform.position).x is > 0 and < 1 && 
-            camera.WorldToViewportPoint(transform.position).y is > 0 and < 1)
+        //Check if PatrolEnemy is in current camera view
+        var screenPoint = Camera.main.WorldToViewportPoint(transform.position);
+        var onScreen = screenPoint is {z: > 0, x: > 0 and < 1, y: > 0 and < 1};
+        if (onScreen)
         {
             audioSource.mute = false;
         }
