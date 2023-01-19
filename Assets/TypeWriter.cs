@@ -17,6 +17,7 @@ public class TypeWriter : MonoBehaviour
 	string _writer;
 	public AudioSource audioSource;
 	public GameObject ButtonCanvas;
+	public bool loop;
 	
 	[SerializeField] float delayBeforeStart = 0f;
 	[SerializeField] float timeBtwChars = 0.1f;
@@ -29,7 +30,7 @@ public class TypeWriter : MonoBehaviour
 		audioSource = GetComponent<AudioSource>();
 		_text = GetComponent<Text>()!;
 		_tmpProText = GetComponent<TMP_Text>()!;
-
+		
 		if(_text != null)
         {
 			_writer = _text.text;
@@ -74,14 +75,13 @@ public class TypeWriter : MonoBehaviour
 		if (leadingChar == "")
 		{
 			audioSource.Stop();
-
 		}
 	}
 
 	public void EnableButton()
     {
-		ButtonCanvas.SetActive(true);
-	}
+	    ButtonCanvas.SetActive(true);
+    }
 
 	public IEnumerator TypeWriterTMP()
     {

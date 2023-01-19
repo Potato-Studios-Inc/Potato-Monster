@@ -55,6 +55,8 @@ public class playerMovement : MonoBehaviour
             return;
         }
         
+        //if player is in scene
+        
         if (!audioSource.isPlaying)
         {
             audioSource.PlayOneShot(ingameSound, 0.05f);
