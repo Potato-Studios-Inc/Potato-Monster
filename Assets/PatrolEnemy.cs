@@ -30,14 +30,7 @@ public class PatrolEnemy : MonoBehaviour
         //Check if PatrolEnemy is in current camera view
         var screenPoint = Camera.main.WorldToViewportPoint(transform.position);
         var onScreen = screenPoint is {z: > 0, x: > 0 and < 1, y: > 0 and < 1};
-        if (onScreen)
-        {
-            audioSource.mute = false;
-        }
-        else
-        {
-            audioSource.mute = true;
-        }
+        audioSource.mute = !onScreen;
 
         if (transform.position != patrolPoints[currentPointIndex].position)
         {
